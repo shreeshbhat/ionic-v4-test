@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Todos!
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+<ion-content padding>
+  Hello
+  
+  <ion-fab center bottom>
+    <button ion-fab><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="addItem()"><ion-icon name="ios-list"></ion-icon></button>
+      <button ion-fab (click)="addItem()"><ion-icon name="ios-browsers-outline"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

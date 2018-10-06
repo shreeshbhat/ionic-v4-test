@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Todos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<ion-list>
+  <ion-item button detail 
+  *ngFor="let todo of dataService.todos" 
+  [href]="'/todo/' + todo.id" 
+  routerDirection="forward">
+    <ion-label>{{ todo.task }}</ion-label>
+  </ion-item>
+</ion-list>
+
+<ion-fab vertical="bottom" horizontal="center">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button class="fab-button" (click)="addTodo()">
+      <ion-icon name="list"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button class="fab-button" (click)="addTodo()">
+      <ion-icon name="list-box">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+</ion-content>

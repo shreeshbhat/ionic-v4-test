@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'add-item', loadChildren: './pages/add-item/add-item.module#AddItemPageModule' },
+  { path: '', redirectTo: 'todo', pathMatch: 'full' },
+  { path: 'todo', loadChildren: './pages/home/home.module#HomePageModule' },
+  { path: 'todo/:id', loadChildren: './pages/detail/detail.module#DetailPageModule' }
 ];
 
 @NgModule({

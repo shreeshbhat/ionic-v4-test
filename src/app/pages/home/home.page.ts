@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { ModalController, AlertController, NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
+import { AddTodoComponent } from '../../components/add-todo/add-todo.component';
+import { Todo } from '../../domain/todo';
+import { Tag } from '../../domain/tag';
+
 
 @Component({
   selector: 'app-home',
@@ -8,54 +12,61 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  public items = [];
+  public todos: Todo[] = [];
+  public cards: Map<string,Tag> = new Map();
+  public tags: Tag[] =[];
 
   constructor(
     private modalCtrl: ModalController, 
     private dataService: DataService,
-    private alertCtrl: AlertController,
     private navCtrl: NavController) {
-    this.getData();
   }
 
   ngOnInit(){
-    this.dataService.load();
+    this.dataService.load().then(() => {
+      this.getData();
+    });
   }
   
-  public addTodo() {
-    this.alertCtrl.create({
-      header: 'New Note',
-      message: 'What should the title of this note be?',
-      inputs: [
-        {
-          type: 'text',
-          name: 'title'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel'
-        },
-        {
-          text: 'Save',
-          handler: (data) => {
-            this.dataService.createTodo(data.title);
-            this.getData();
-            //TODO Change this to not load entire data while adding one todo
-          }
-        }
-      ]
-    }).then((alert) => {
-      alert.present();
+  async addTodo() {
+    let addModal = await this.modalCtrl.create({
+      component: AddTodoComponent
     });
+
+    addModal.onDidDismiss().then(() => {
+      this.getData();
+    });
+    return await addModal.present();
   }
 
   public getData() {
     this.dataService.getData().then((todos) => {
-      if(todos){
-        this.items = todos;
+      if(!!todos){
+        this.todos = todos as Todo[];
+        this.cards = this.getCards();
+        this.tags = Array.from(this.cards.values());
       }
     });
+  }
+
+  private getCards():  Map<string,Tag> {
+    let cards:  Map<string,Tag> = new Map();
+    for (let i = 0; i < this.todos.length; i++) {
+      let todo = this.todos[i];
+      const label = todo['tag'];
+      let newTodos: Todo[] = [];
+      let newTodo: Todo = new Todo(todo['id'],todo['task'],todo['tag']);
+      if (cards.has(label)) {
+        cards.get(label).todos.push(newTodo);
+      }
+      else {
+        const color = 'tertiary';
+        newTodos.push(newTodo);
+        let tag: Tag = new Tag(label,color,newTodos);
+        cards.set(label,tag);
+      }
+    }
+    return cards;
   }
   
 }

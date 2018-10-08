@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { Todo } from '../../interfaces/todo';
+import { Todo } from '../../domain/todo';
  
 @Component({
   selector: 'app-detail',

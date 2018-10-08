@@ -1,5 +1,13 @@
-.fab-button {
-    button {
-      background: purple !important;
-    }
+:host {
+  .fab-button {
+    --background: var(--ion-color-primary-tint);
+  }
+
+  .fab-icon {
+    color: var(--ion-color-primary-contrast);
+  }
+
+  .home-background {
+    --ion-background-color: var(--ion-color-tertiary) !important; 
+  }
 }

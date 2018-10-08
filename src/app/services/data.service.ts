@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Todo } from '../interfaces/todo';
+import { Todo } from '../domain/todo';
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,13 +42,13 @@ export class DataService {
     return this.todos.find(todo => todo.id === id);
   }
 
-  createTodo(todo): void {
+  createTodo(todo: Todo): void {
     // Create a unique id that is one larger than the current largest id
     let id = Math.max(...this.todos.map(todo => parseInt(todo.id)), 0) + 1;
     this.todos.push({
       id: id.toString(),
-      task: todo,
-      tag: ''
+      task: todo.task,
+      tag: todo.tag
     });
     this.save();
   }
@@ -60,7 +61,5 @@ export class DataService {
       this.todos.splice(index, 1);
       this.save();
     }
- 
   }
-
 }

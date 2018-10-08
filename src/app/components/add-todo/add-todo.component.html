@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Add Todo
+    </ion-title>
+      <ion-buttons>
+        <ion-button><ion-icon name="close"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+  <ion-list>
+ 
+    <ion-item>
+      <ion-label floating>Todo</ion-label>
+      <ion-input type="text" [(ngModel)]="task"></ion-input>
+    </ion-item>
+ 
+    <ion-item>
+      <ion-label floating>Tag</ion-label>
+      <ion-input type="text" [(ngModel)]="tag"></ion-input>
+    </ion-item>
+ 
+  </ion-list>
+ 
+  <ion-button color="primary" (click)="saveItem()">Save</ion-button>
+ 
+</ion-content>

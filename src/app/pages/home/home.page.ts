@@ -30,7 +30,8 @@ export class HomePage {
   
   async addTodo() {
     let addModal = await this.modalCtrl.create({
-      component: AddTodoComponent
+      component: AddTodoComponent,
+      cssClass: 'add-todo'
     });
 
     addModal.onDidDismiss().then(() => {
